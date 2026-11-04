@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
+    <defs>
+      <linearGradient id="grad-The2027Atmosphere" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#20241A" />
+        <stop offset="100%" stop-color="#525E3B" />
+      </linearGradient>
+      <radialGradient id="glow-The2027Atmosphere" cx="50%" cy="40%" r="65%">
+        <stop offset="0%" stop-color="#C6A96B" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.75" />
+      </radialGradient>
+      <pattern id="pattern-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#F6F3EB" stroke-opacity="0.04" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="1200" height="900" fill="url(#grad-The2027Atmosphere)" />
+    <rect width="1200" height="900" fill="url(#glow-The2027Atmosphere)" />
+    <rect width="1200" height="900" fill="url(#pattern-grid)" />
+
+    <!-- Editorial border -->
+    <rect x="24" y="24" width="1152" height="852" fill="none" stroke="#C6A96B" stroke-opacity="0.4" stroke-width="1.5" stroke-dasharray="8 8" />
+    
+    <!-- Gold accent corners -->
+    <path d="M 24 54 L 24 24 L 54 24" fill="none" stroke="#C6A96B" stroke-width="2.5" />
+    <path d="M 1176 54 L 1176 24 L 1146 24" fill="none" stroke="#C6A96B" stroke-width="2.5" />
+    <path d="M 24 846 L 24 876 L 54 876" fill="none" stroke="#C6A96B" stroke-width="2.5" />
+    <path d="M 1176 846 L 1176 876 L 1146 876" fill="none" stroke="#C6A96B" stroke-width="2.5" />
+
+    <!-- Badge -->
+    <rect x="460" y="55" width="280" height="38" rx="19" fill="#252820" fill-opacity="0.85" stroke="#C6A96B" stroke-width="1" />
+    <text x="600" y="79" font-family="'Manrope', sans-serif" font-size="12" letter-spacing="3" fill="#F6F3EB" text-anchor="middle" font-weight="600">NEXT CHAPTER • 2026 ARCHIVE</text>
+
+    <!-- Center Icon Symbol -->
+    <circle cx="600" cy="405" r="50" fill="#3F4B2B" stroke="#C6A96B" stroke-width="1.5" />
+    <circle cx="600" cy="405" r="40" fill="none" stroke="#F6F3EB" stroke-opacity="0.3" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="600" y="413" font-family="'Cormorant Garamond', Georgia, serif" font-size="24" letter-spacing="2" fill="#C6A96B" text-anchor="middle" font-weight="bold">GWS</text>
+
+    <!-- Typography -->
+    <text x="600" y="500" font-family="'Playfair Display', Georgia, serif" font-size="30" font-weight="bold" letter-spacing="1" fill="#FFFFFF" text-anchor="middle">The 2027 Atmosphere</text>
+    <text x="600" y="540" font-family="'Manrope', sans-serif" font-size="16" fill="#EAE5D8" fill-opacity="0.9" text-anchor="middle">Anticipating a profound horizon of spiritual and relational elevation</text>
+
+    <!-- Notice -->
+    <rect x="420" y="825" width="360" height="32" rx="6" fill="#000000" fill-opacity="0.65" stroke="#69764A" stroke-width="0.8" />
+    <text x="600" y="846" font-family="'Manrope', sans-serif" font-size="11" letter-spacing="1.5" fill="#C6A96B" text-anchor="middle">[ OFFICIAL 2026 SUMMIT PHOTOGRAPHY ARCHIVE ]</text>
+  </svg>

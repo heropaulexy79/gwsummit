@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary-olive: #3F4B2B;
+    --color-secondary-olive: #5C6B42;
+    --color-muted-sage: #8F9E75;
+    --color-warm-ivory: #FAF8F5;
+    --color-soft-linen: #F3EFE8;
+    --color-soft-blush: #EAE1D7;
+    --color-champagne-gold: #C6A96B;
+    --color-charcoal: #2A2E24;
+    --color-white: #FFFFFF;
+
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-charcoal);
+    background-color: var(--color-warm-ivory);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* Subtle botanical organic texture */
+.editorial-linen {
+  background-color: #FAF8F5;
+  background-image: radial-gradient(rgba(63, 75, 43, 0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* High-end editorial drop cap */
+.drop-cap::first-letter {
+  float: left;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 4rem;
+  line-height: 0.8;
+  padding-top: 4px;
+  padding-right: 12px;
+  color: #3F4B2B;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Custom soft scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F3EFE8;
+}
+::-webkit-scrollbar-thumb {
+  background: #A5AE8B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3F4B2B;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
