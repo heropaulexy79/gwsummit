@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, CheckCircle2, AlertCircle, ShieldCheck, Mail, Phone, Globe, Building } from 'lucide-react';
 import { eventConfig } from '../data/eventConfig';
+import { submitToSheets } from '../data/webhookConfig';
 
 interface FormData {
   fullName: string;
@@ -97,19 +98,26 @@ export const RegistrationForm: React.FC = () => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setSubmittedData({ ...formData });
+    // Send payload to Google Sheets webhook and trigger confirmation email
+    const payload = {
+      type: 'registration',
+      ...formData,
+      timestamp: new Date().toISOString()
+    };
 
-      try {
-        const existing = JSON.parse(localStorage.getItem('gws_registrations') || '[]');
-        existing.push({ ...formData, registeredAt: new Date().toISOString() });
-        localStorage.setItem('gws_registrations', JSON.stringify(existing));
-      } catch (err) {
-        console.warn('LocalStorage error:', err);
-      }
-    }, 1000);
+    await submitToSheets(payload);
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('gws_registrations') || '[]');
+      existing.push(payload);
+      localStorage.setItem('gws_registrations', JSON.stringify(existing));
+    } catch (err) {
+      console.warn('LocalStorage error:', err);
+    }
+
+    setIsSubmitting(false);
+    setIsSuccess(true);
+    setSubmittedData({ ...formData });
   };
 
   const handleReset = () => {
@@ -145,19 +153,19 @@ export const RegistrationForm: React.FC = () => {
           </h2>
 
           <p className="mt-3 text-sm sm:text-base text-[#252820]/75 font-light">
-            Convening in Lagos, Nigeria. Reserve your place for early notifications on dates, venue release, and program updates.
+            Convening in Lagos, Nigeria. A confirmation email and delegate pass will be sent directly to your inbox.
           </p>
         </div>
 
         {/* Confirmation Screen */}
         {isSuccess && submittedData ? (
-          <div className="bg-[#FFFFFF] border border-[#C6A96B] p-8 sm:p-12 shadow-xl relative animate-fade-in text-center max-w-2xl mx-auto">
+          <div className="bg-[#FFFFFF] border border-[#C6A96B] p-8 sm:p-12 shadow-xl relative animate-fade-in text-center max-w-2xl mx-auto rounded-3xl">
             <div className="w-14 h-14 rounded-full bg-[#3F4B2B] text-[#C6A96B] flex items-center justify-center mx-auto mb-5 shadow-md">
               <CheckCircle2 className="w-7 h-7" />
             </div>
 
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#69764A]">
-              REGISTRATION LOGGED • LAGOS 2027
+              REGISTRATION RECORDED • LAGOS 2027
             </span>
 
             <h3 className="font-serif text-2xl sm:text-3xl text-[#3F4B2B] mt-2 mb-3 font-semibold">
@@ -165,14 +173,14 @@ export const RegistrationForm: React.FC = () => {
             </h3>
 
             <p className="text-sm text-[#252820]/80 max-w-md mx-auto font-light leading-relaxed">
-              Your registration for <strong>Global Wives Summit 2027 (Lagos)</strong> has been logged. You will receive official updates at:
+              Your registration for <strong>Global Wives Summit 2027 (Lagos)</strong> has been logged into the delegate registry. A confirmation email has been dispatched to:
             </p>
 
-            <div className="my-5 inline-block bg-[#F6F3EB] px-6 py-2.5 border border-[#69764A]/30 font-mono text-sm text-[#3F4B2B]">
+            <div className="my-5 inline-block bg-[#F6F3EB] px-6 py-2.5 rounded-xl border border-[#69764A]/30 font-mono text-sm text-[#3F4B2B]">
               {submittedData.email}
             </div>
 
-            <div className="max-w-md mx-auto p-4 bg-[#EAE5D8]/50 border border-[#69764A]/20 text-left text-xs space-y-2 mb-8">
+            <div className="max-w-md mx-auto p-4 bg-[#EAE5D8]/50 rounded-2xl border border-[#69764A]/20 text-left text-xs space-y-2 mb-8">
               <div className="flex justify-between">
                 <span className="text-[#69764A] uppercase">Category</span>
                 <span className="font-medium text-[#252820]">{submittedData.registrationCategory}</span>
@@ -192,14 +200,14 @@ export const RegistrationForm: React.FC = () => {
             <button
               type="button"
               onClick={handleReset}
-              className="px-8 py-3 bg-[#3F4B2B] text-[#F6F3EB] hover:bg-[#1E2514] text-xs font-semibold tracking-[0.2em] uppercase transition-colors"
+              className="px-8 py-3.5 bg-[#3F4B2B] text-[#F6F3EB] hover:bg-[#1E2514] text-xs font-semibold tracking-[0.2em] uppercase transition-colors rounded-full"
             >
               REGISTER ANOTHER ATTENDEE
             </button>
           </div>
         ) : (
           /* Clean Registration Form */
-          <div className="bg-[#FFFFFF] border border-[#69764A]/20 shadow-lg p-8 sm:p-12">
+          <div className="bg-[#FFFFFF] border border-[#69764A]/20 shadow-lg p-8 sm:p-12 rounded-3xl">
             <form onSubmit={handleSubmit} noValidate className="space-y-6">
               
               {/* Category Dropdown */}
@@ -212,7 +220,7 @@ export const RegistrationForm: React.FC = () => {
                   name="registrationCategory"
                   value={formData.registrationCategory}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
                 >
                   {CATEGORIES.map((cat) => (
                     <option key={cat.id} value={cat.id}>
@@ -234,7 +242,7 @@ export const RegistrationForm: React.FC = () => {
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="e.g. Sarah Elizabeth Jenkins"
-                  className={`w-full px-4 py-3 bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
+                  className={`w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
                     errors.fullName ? 'border-red-500' : 'border-[#69764A]/30 focus:border-[#3F4B2B]'
                   }`}
                 />
@@ -259,7 +267,7 @@ export const RegistrationForm: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@domain.com"
-                      className={`w-full px-4 py-3 bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
                         errors.email ? 'border-red-500' : 'border-[#69764A]/30 focus:border-[#3F4B2B]'
                       }`}
                     />
@@ -284,7 +292,7 @@ export const RegistrationForm: React.FC = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+234 800 000 0000"
-                      className={`w-full px-4 py-3 bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
                         errors.phone ? 'border-red-500' : 'border-[#69764A]/30 focus:border-[#3F4B2B]'
                       }`}
                     />
@@ -312,7 +320,7 @@ export const RegistrationForm: React.FC = () => {
                       value={formData.country}
                       onChange={handleChange}
                       placeholder="e.g. Lagos, Nigeria"
-                      className={`w-full px-4 py-3 bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
+                      className={`w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
                         errors.country ? 'border-red-500' : 'border-[#69764A]/30 focus:border-[#3F4B2B]'
                       }`}
                     />
@@ -337,7 +345,7 @@ export const RegistrationForm: React.FC = () => {
                       value={formData.churchOrganization}
                       onChange={handleChange}
                       placeholder="Your community or ministry"
-                      className="w-full px-4 py-3 bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
                     />
                     <Building className="w-4 h-4 text-[#69764A] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
@@ -345,10 +353,10 @@ export const RegistrationForm: React.FC = () => {
               </div>
 
               {/* Privacy Message */}
-              <div className="flex items-start gap-3 p-4 bg-[#F6F3EB] border border-[#69764A]/20 text-xs text-[#252820]/80">
+              <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#F6F3EB] border border-[#69764A]/20 text-xs text-[#252820]/80">
                 <ShieldCheck className="w-4 h-4 text-[#3F4B2B] shrink-0 mt-0.5" />
                 <p>
-                  We respect your privacy. Your information is securely handled and will only be used to communicate official Global Wives Summit 2027 logistics.
+                  We respect your privacy. Your entry is securely added to our delegate spreadsheet and will trigger an automated confirmation to your email.
                 </p>
               </div>
 
@@ -356,12 +364,12 @@ export const RegistrationForm: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 px-8 bg-[#3F4B2B] hover:bg-[#252C1A] text-[#F6F3EB] font-semibold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 flex items-center justify-center gap-3 shadow-md disabled:opacity-70"
+                className="w-full py-4 px-8 rounded-full bg-[#3F4B2B] hover:bg-[#252C1A] text-[#F6F3EB] font-semibold text-xs sm:text-sm tracking-[0.2em] uppercase transition-all duration-300 flex items-center justify-center gap-3 shadow-md disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
                     <span className="w-4 h-4 border-2 border-[#C6A96B] border-t-transparent rounded-full animate-spin" />
-                    PROCESSING REGISTRATION...
+                    RECORDING & DISPATCHING CONFIRMATION EMAIL...
                   </span>
                 ) : (
                   <>

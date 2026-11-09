@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { grantTiers, ageGroups } from '../data/grantConfig';
 import { eventConfig } from '../data/eventConfig';
+import { submitToSheets } from '../data/webhookConfig';
 
 type GrantCategory = 'business' | 'ngo' | 'student';
 
@@ -123,7 +124,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validate()) {
@@ -134,24 +135,29 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      const generatedRef = `GWS27-GRANT-${Math.floor(100000 + Math.random() * 900000)}`;
-      setSubmittedRef(generatedRef);
-      setIsSubmitting(false);
-      setIsSuccess(true);
+    const generatedRef = `GWS27-GRANT-${Math.floor(100000 + Math.random() * 900000)}`;
 
-      try {
-        const stored = JSON.parse(localStorage.getItem('gws_grant_applications') || '[]');
-        stored.push({
-          ...formData,
-          referenceId: generatedRef,
-          appliedAt: new Date().toISOString()
-        });
-        localStorage.setItem('gws_grant_applications', JSON.stringify(stored));
-      } catch (err) {
-        console.warn('LocalStorage error:', err);
-      }
-    }, 1200);
+    // Submit payload to Google Sheets (Grants sheet) + Email webhook
+    const payload = {
+      type: 'grant',
+      referenceId: generatedRef,
+      ...formData,
+      timestamp: new Date().toISOString()
+    };
+
+    await submitToSheets(payload);
+
+    try {
+      const stored = JSON.parse(localStorage.getItem('gws_grant_applications') || '[]');
+      stored.push(payload);
+      localStorage.setItem('gws_grant_applications', JSON.stringify(stored));
+    } catch (err) {
+      console.warn('LocalStorage error:', err);
+    }
+
+    setSubmittedRef(generatedRef);
+    setIsSubmitting(false);
+    setIsSuccess(true);
   };
 
   const handleReset = () => {
@@ -323,7 +329,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                 </div>
 
                 <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#5C6B42]">
-                  APPLICATION RECEIVED • GWS 2027 LAGOS
+                  APPLICATION RECORDED • GWS 2027 LAGOS
                 </span>
 
                 <h3 className="font-serif text-3xl sm:text-4xl text-[#3F4B2B] mt-2 mb-4 font-normal">
@@ -335,7 +341,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                     {formData.grantType === 'business' && 'Business Empowerment Grant'}
                     {formData.grantType === 'ngo' && 'NGO & Community Support Fund'}
                     {formData.grantType === 'student' && 'Student Refuel Package'}
-                  </strong> has been officially received.
+                  </strong> has been saved to the grants registry. A confirmation email has been dispatched to:
                 </p>
 
                 <div className="my-6 inline-block bg-[#F3EFE8] px-8 py-4 rounded-2xl border border-[#C6A96B]/40 font-mono text-sm text-[#3F4B2B]">
@@ -358,7 +364,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#5C6B42] uppercase">Selection Status</span>
-                    <span className="font-medium text-emerald-800">Under Review for Summit Shortlist</span>
+                    <span className="font-medium text-emerald-800">Logged to Sheet • Under Review</span>
                   </div>
                 </div>
 
@@ -652,7 +658,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                   <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#EAE1D7]/50 border border-[#EAE1D7] text-xs text-[#2A2E24]/85">
                     <ShieldCheck className="w-5 h-5 text-[#3F4B2B] shrink-0 mt-0.5" />
                     <p>
-                      All grant submissions are reviewed by the Global Wives Summit 2027 Grants Advisory Committee. Recipients will be announced and formally presented during the Lagos summit sessions.
+                      All submissions automatically log into our secure vetting sheet and dispatch an acknowledgment email with your application reference ID.
                     </p>
                   </div>
 
@@ -664,7 +670,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <span className="w-4 h-4 border-2 border-[#C6A96B] border-t-transparent rounded-full animate-spin" />
-                        SUBMITTING APPLICATION...
+                        RECORDING & DISPATCHING ACKNOWLEDGMENT EMAIL...
                       </span>
                     ) : (
                       <>
