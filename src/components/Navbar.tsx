@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { eventConfig } from '../data/eventConfig';
 
-export const Navbar: React.FC = () => {
+interface NavbarProps {
+  onOpenGrants: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -14,6 +18,13 @@ export const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleNavClick = (href: string) => {
+    setIsMobileMenuOpen(false);
+    if (href === '#grants') {
+      onOpenGrants();
+    }
+  };
 
   return (
     <header
@@ -49,19 +60,36 @@ export const Navbar: React.FC = () => {
 
           {/* Clean Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-9">
-            {eventConfig.navigation.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors py-1 ${
-                  isScrolled
-                    ? 'text-[#2A2E24]/80 hover:text-[#3F4B2B]'
-                    : 'text-[#FAF8F5]/85 hover:text-[#C6A96B]'
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {eventConfig.navigation.map((item) => {
+              const isGrants = item.href === '#grants';
+              return isGrants ? (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={onOpenGrants}
+                  className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors py-1 flex items-center gap-1.5 ${
+                    isScrolled
+                      ? 'text-[#3F4B2B] hover:text-[#5C6B42]'
+                      : 'text-[#C6A96B] hover:text-[#FAF8F5]'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C6A96B] animate-pulse" />
+                </button>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors py-1 ${
+                    isScrolled
+                      ? 'text-[#2A2E24]/80 hover:text-[#3F4B2B]'
+                      : 'text-[#FAF8F5]/85 hover:text-[#C6A96B]'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Soft Rounded CTA Button */}
@@ -109,16 +137,29 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex flex-col space-y-4">
-          {eventConfig.navigation.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-xs tracking-[0.2em] uppercase text-[#3F4B2B] hover:text-[#8F9E75] py-2 border-b border-[#3F4B2B]/5 transition-colors"
-            >
-              {item.label}
-            </a>
-          ))}
+          {eventConfig.navigation.map((item) => {
+            const isGrants = item.href === '#grants';
+            return isGrants ? (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => handleNavClick(item.href)}
+                className="text-left text-xs tracking-[0.2em] uppercase text-[#3F4B2B] font-semibold hover:text-[#8F9E75] py-2 border-b border-[#3F4B2B]/5 transition-colors flex items-center justify-between"
+              >
+                <span>{item.label}</span>
+                <span className="text-[10px] text-[#C6A96B] font-mono">Up to ₦500k</span>
+              </button>
+            ) : (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={() => handleNavClick(item.href)}
+                className="text-xs tracking-[0.2em] uppercase text-[#3F4B2B] hover:text-[#8F9E75] py-2 border-b border-[#3F4B2B]/5 transition-colors"
+              >
+                {item.label}
+              </a>
+            );
+          })}
           <div className="pt-2">
             <a
               href="#register"

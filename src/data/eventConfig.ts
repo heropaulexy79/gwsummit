@@ -43,6 +43,7 @@ export const eventConfig: EventConfig = {
   navigation: [
     { label: "The Summit", href: "#summit" },
     { label: "Our Story", href: "#story" },
+    { label: "Grants & Support", href: "#grants" },
     { label: "2026 Highlights", href: "#highlights" },
     { label: "Register", href: "#register" },
   ],

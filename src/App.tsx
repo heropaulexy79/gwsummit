@@ -4,6 +4,8 @@ import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { StorySection } from './components/StorySection';
 import { SummitIntroduction } from './components/SummitIntroduction';
+import { GrantsBanner } from './components/GrantsBanner';
+import { GrantsPage } from './components/GrantsPage';
 import { GallerySection } from './components/GallerySection';
 import { ExpectationsSection } from './components/ExpectationsSection';
 import { EventDetailsSection } from './components/EventDetailsSection';
@@ -12,7 +14,24 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { Footer } from './components/Footer';
 
 export const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<'home' | 'grants'>('home');
   const [showStickyCta, setShowStickyCta] = useState(false);
+
+  // Sync with browser URL hash / history
+  useEffect(() => {
+    const handleHash = () => {
+      if (window.location.hash === '#grants') {
+        setCurrentPage('grants');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (window.location.hash === '#home' || !window.location.hash.startsWith('#grant')) {
+        setCurrentPage('home');
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,10 +42,26 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const openGrants = () => {
+    setCurrentPage('grants');
+    window.location.hash = 'grants';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const backToHome = () => {
+    setCurrentPage('home');
+    window.location.hash = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  if (currentPage === 'grants') {
+    return <GrantsPage onBackToHome={backToHome} />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#F6F3EB] text-[#252820] flex flex-col font-sans selection:bg-[#3F4B2B] selection:text-[#F6F3EB]">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#2A2E24] flex flex-col font-sans selection:bg-[#3F4B2B] selection:text-[#FAF8F5]">
       {/* SECTION 1 — NAVIGATION */}
-      <Navbar />
+      <Navbar onOpenGrants={openGrants} />
 
       <main className="flex-grow">
         {/* SECTION 2 — HERO EXPERIENCE */}
@@ -37,6 +72,9 @@ export const App: React.FC = () => {
 
         {/* SECTION 4 — INTRODUCING THE SUMMIT */}
         <SummitIntroduction />
+
+        {/* COMPACT GRANTS & BENEVOLENCE SHOWCASE BANNER */}
+        <GrantsBanner onOpenGrants={openGrants} />
 
         {/* SECTION 5 — GLOBAL WIVES SUMMIT 2026 RECAP */}
         <GallerySection />
@@ -65,7 +103,7 @@ export const App: React.FC = () => {
       >
         <a
           href="#register"
-          className="w-full flex items-center justify-between px-6 py-3.5 bg-[#3F4B2B] text-[#F6F3EB] border border-[#C6A96B] shadow-2xl text-xs font-semibold tracking-[0.18em] uppercase"
+          className="w-full flex items-center justify-between px-6 py-3.5 bg-[#3F4B2B] text-[#FAF8F5] border border-[#C6A96B] shadow-2xl rounded-full text-xs font-semibold tracking-[0.18em] uppercase"
         >
           <span>REGISTER FOR GWS 2027</span>
           <ArrowUpRight className="w-4 h-4 text-[#C6A96B]" />
