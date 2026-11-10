@@ -2,19 +2,28 @@
 
 @layer base {
   :root {
-    --color-primary-olive: #3F4B2B;
-    --color-secondary-olive: #5C6B42;
-    --color-muted-sage: #8F9E75;
+    --color-primary-olive: #2E381F;
+    --color-rich-olive: #3D4A2A;
+    --color-secondary-olive: #56653D;
+    --color-muted-sage: #8A9772;
+    --color-pale-sage: #D8DFCD;
+    
     --color-warm-ivory: #FAF8F5;
     --color-soft-linen: #F3EFE8;
-    --color-soft-blush: #EAE1D7;
+    --color-warm-cream: #EDE7DC;
+    --color-soft-blush: #E8DDD2;
+    
     --color-champagne-gold: #C6A96B;
-    --color-charcoal: #2A2E24;
+    --color-antique-gold: #B89753;
+    --color-gold-light: #EFE6D1;
+    
+    --color-charcoal: #242820;
+    --color-dark-espresso: #1B1E17;
     --color-white: #FFFFFF;
 
     --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-script: 'Alex Brush', cursive;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   body {
@@ -24,31 +33,59 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-serif {
+  h1, h2, h3, h4, .font-serif {
     font-family: var(--font-serif);
   }
 
-  .font-display {
-    font-family: var(--font-display);
+  .font-script {
+    font-family: var(--font-script);
   }
 }
 
-/* Subtle botanical organic texture */
+/* Luxury Editorial Textures & Accents */
 .editorial-linen {
   background-color: #FAF8F5;
-  background-image: radial-gradient(rgba(63, 75, 43, 0.025) 1px, transparent 0);
+  background-image: radial-gradient(rgba(46, 56, 31, 0.035) 1px, transparent 0);
   background-size: 24px 24px;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #DFCA98 0%, #C6A96B 50%, #9E8142 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #E6D5A8 0%, #C6A96B 60%, #A38440 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 25px rgba(198, 169, 107, 0.18);
+}
+
+.glass-panel-dark {
+  background: rgba(30, 37, 22, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(198, 169, 107, 0.25);
+}
+
+.glass-panel-light {
+  background: rgba(250, 248, 245, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(198, 169, 107, 0.3);
 }
 
 /* High-end editorial drop cap */
 .drop-cap::first-letter {
   float: left;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 4rem;
-  line-height: 0.8;
+  font-size: 4.25rem;
+  line-height: 0.78;
   padding-top: 4px;
-  padding-right: 12px;
-  color: #3F4B2B;
+  padding-right: 14px;
+  color: var(--color-rich-olive);
   font-style: italic;
   font-weight: 500;
 }
@@ -65,7 +102,7 @@
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3F4B2B;
+  background: #3D4A2A;
 }
 
 /* Reduced motion */
