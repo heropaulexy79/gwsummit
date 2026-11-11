@@ -12,7 +12,9 @@ import {
   Radio, 
   Users, 
   HeartHandshake, 
-  Compass
+  Compass,
+  MessageCircle,
+  X
 } from 'lucide-react';
 import { eventConfig } from '../data/eventConfig';
 import { submitToSheets } from '../data/webhookConfig';
@@ -84,6 +86,7 @@ export const RegistrationForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+  const [showWhatsAppModal, setShowWhatsAppModal] = useState<boolean>(false);
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -176,10 +179,12 @@ export const RegistrationForm: React.FC = () => {
     setIsSubmitting(false);
     setIsSuccess(true);
     setSubmittedData({ ...formData });
+    setShowWhatsAppModal(true);
   };
 
   const handleReset = () => {
     setIsSuccess(false);
+    setShowWhatsAppModal(false);
     setFormData({
       fullName: '',
       email: '',
@@ -263,6 +268,35 @@ export const RegistrationForm: React.FC = () => {
               <div className="flex justify-between">
                 <span className="text-[#69764A] uppercase font-mono">Relationship Status</span>
                 <span className="font-medium text-[#252820]">{submittedData.relationshipStatus}</span>
+              </div>
+            </div>
+
+            {/* Prominent WhatsApp Community Banner on Confirmation */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#E8F5E9] border-2 border-[#25D366] text-left mb-6 shadow-md">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+                <div className="flex-grow">
+                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#1E7E34] font-bold block mb-1">
+                    OFFICIAL ATTENDEES COMMUNITY
+                  </span>
+                  <h4 className="font-serif text-lg sm:text-xl text-[#1B4323] font-semibold mb-1">
+                    Join the Global Wives WhatsApp Group
+                  </h4>
+                  <p className="text-xs sm:text-sm text-[#2D5A35] font-light leading-relaxed mb-4">
+                    Connect directly with fellow registered wives, receive prompt summit logistics, venue updates, and daily prayer inspiration.
+                  </p>
+                  <a
+                    href="https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold tracking-wider uppercase rounded-full shadow-lg transition-transform hover:scale-105"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Join WhatsApp Group Now</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -664,6 +698,64 @@ export const RegistrationForm: React.FC = () => {
         )}
 
       </div>
+
+      {/* POPUP DIALOG MODAL: WHATSAPP COMMUNITY INVITATION */}
+      {showWhatsAppModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+          <div className="bg-[#FFFFFF] border-2 border-[#25D366] rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl relative animate-scale-up text-center">
+            
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setShowWhatsAppModal(false)}
+              className="absolute top-4 right-4 p-2 text-[#2A2E24]/60 hover:text-[#2A2E24] hover:bg-[#F3EFE8] rounded-full transition-colors"
+              aria-label="Close dialog"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Icon Header */}
+            <div className="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <MessageCircle className="w-9 h-9" />
+            </div>
+
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#1E7E34] font-bold block mb-1">
+              REGISTRATION SUCCESSFUL! 🎉
+            </span>
+
+            <h3 className="font-serif text-2xl sm:text-3xl text-[#1B4323] font-normal leading-tight mb-2">
+              Join the Official Global Wives WhatsApp Group
+            </h3>
+
+            <p className="text-sm text-[#2A2E24]/80 font-light leading-relaxed mb-6">
+              You are officially registered! To ensure you do not miss any summit updates, prayer anchors, schedule announcements, and delegate instructions, please connect with the official attendee group on WhatsApp.
+            </p>
+
+            {/* CTAs */}
+            <div className="space-y-3">
+              <a
+                href="https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setShowWhatsAppModal(false)}
+                className="w-full inline-flex items-center justify-center gap-3 py-3.5 px-6 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white font-semibold text-sm tracking-wider uppercase shadow-xl transition-all hover:scale-105"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>Join WhatsApp Group Now</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setShowWhatsAppModal(false)}
+                className="w-full py-2.5 text-xs text-[#2A2E24]/60 hover:text-[#2A2E24] tracking-wider uppercase font-medium transition-colors"
+              >
+                I'll Join Later
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
 
     </section>
   );

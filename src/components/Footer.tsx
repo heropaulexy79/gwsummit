@@ -61,23 +61,39 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Connect & Contact (Col 9-12) */}
-          <div className="md:col-span-4 space-y-6">
+          <div className="md:col-span-4 space-y-4">
             <span className="text-xs uppercase tracking-[0.25em] text-[#C6A96B] font-medium block">
               LAGOS CONVENING & INQUIRIES
             </span>
             <p className="text-xs text-[#EAE1D7]/70 font-light leading-relaxed">
-              For registration inquiries, cohort questions, or partnership support:
+              For registration inquiries, cohort questions, or assistance:
             </p>
             
-            <div className="flex items-center gap-2.5 text-sm text-[#FAF8F5]">
-              <Mail className="w-4 h-4 text-[#C6A96B]" />
-              <a href="mailto:globalwivessummit@gmail.com" className="hover:text-[#C6A96B] underline underline-offset-4 font-light">
-                globalwivessummit@gmail.com
-              </a>
+            <div className="space-y-2 text-xs text-[#FAF8F5]">
+              <div className="flex items-center gap-2">
+                <span className="text-[#C6A96B]">📞</span>
+                <a href="tel:+2349165840610" className="hover:text-[#C6A96B] font-medium">
+                  +234 916 584 0610
+                </a>
+                <span className="text-[#EAE1D7]/60">(Aderonke)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#C6A96B]">💬</span>
+                <a href="https://wa.me/2348072484722" className="hover:text-[#C6A96B] font-medium" target="_blank" rel="noopener noreferrer">
+                  08072484722
+                </a>
+                <span className="text-[#EAE1D7]/60">(Precious - WhatsApp)</span>
+              </div>
+              <div className="flex items-center gap-2 pt-1">
+                <Mail className="w-3.5 h-3.5 text-[#C6A96B]" />
+                <a href="mailto:globalwivessummit@gmail.com" className="hover:text-[#C6A96B] underline underline-offset-4 font-light">
+                  globalwivessummit@gmail.com
+                </a>
+              </div>
             </div>
 
             {/* Grace Quote */}
-            <div className="p-4 rounded-2xl bg-[#2E3524] border border-white/5 text-xs text-[#EAE1D7]/80 font-serif italic">
+            <div className="p-3.5 rounded-2xl bg-[#2E3524] border border-white/5 text-xs text-[#EAE1D7]/80 font-serif italic">
               "When a wife is renewed in heart and purpose, entire families, communities, and nations are blessed."
             </div>
           </div>

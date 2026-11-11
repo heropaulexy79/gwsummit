@@ -10,6 +10,13 @@ export interface EventConfig {
   isVenueConfirmed: boolean;
   isThemeConfirmed: boolean;
   contactEmail: string;
+  whatsappGroupLink?: string;
+  contacts?: {
+    name: string;
+    phone: string;
+    type: string;
+    link?: string;
+  }[];
   socials: {
     instagram: string;
     facebook: string;
@@ -33,7 +40,12 @@ export const eventConfig: EventConfig = {
   isDateConfirmed: false,
   isVenueConfirmed: false,
   isThemeConfirmed: false,
-  contactEmail: "info@globalwivessummit.com",
+  contactEmail: "globalwivessummit@gmail.com",
+  whatsappGroupLink: "https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t",
+  contacts: [
+    { name: "Aderonke", phone: "+234 916 584 0610", type: "call" },
+    { name: "Precious", phone: "08072484722", type: "whatsapp", link: "https://wa.me/2348072484722" },
+  ],
   socials: {
     instagram: "https://instagram.com",
     facebook: "https://facebook.com",
