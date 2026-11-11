@@ -44,7 +44,6 @@ export const eventConfig: EventConfig = {
     { label: "The Summit", href: "#summit" },
     { label: "Our Story", href: "#story" },
     { label: "Grants & Support", href: "#grants" },
-    { label: "2026 Highlights", href: "#highlights" },
-    { label: "Register", href: "#register" },
+    { label: "2026 Recap", href: "#highlights" },
   ],
 };

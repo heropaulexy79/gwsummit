@@ -40,27 +40,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
           {/* Refined Brand Wordmark with Script Accent */}
           <a
             href="#"
-            className="group flex flex-col focus:outline-none"
+            className="group flex flex-col focus:outline-none shrink-0"
           >
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-baseline gap-2">
               <span
-                className={`font-serif text-xl sm:text-2xl tracking-[0.08em] font-medium transition-colors ${
+                className={`font-serif text-xl sm:text-2xl tracking-[0.06em] font-medium transition-colors ${
                   isScrolled ? 'text-[#2E381F]' : 'text-[#FAF8F5]'
                 }`}
               >
                 Global Wives Summit
               </span>
-              <span className="font-script text-lg text-[#C6A96B] font-normal leading-none pt-1">
+              <span className="font-script text-2xl text-[#C6A96B] font-normal leading-none select-none">
                 2.0
               </span>
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
-              <span className={`h-[1px] w-4 transition-all group-hover:w-8 ${
+            <div className="flex items-center gap-2 mt-1">
+              <span className={`h-[1px] w-4 transition-all group-hover:w-7 ${
                 isScrolled ? 'bg-[#3D4A2A]' : 'bg-[#C6A96B]'
               }`} />
               <span
-                className={`text-[9.5px] tracking-[0.28em] uppercase font-light transition-colors ${
-                  isScrolled ? 'text-[#8A9772]' : 'text-[#C6A96B]'
+                className={`text-[9.5px] tracking-[0.25em] uppercase font-light transition-colors ${
+                  isScrolled ? 'text-[#5C6B42]' : 'text-[#C6A96B]'
                 }`}
               >
                 2027 • Lagos, Nigeria
@@ -68,8 +68,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
             </div>
           </a>
 
-          {/* Clean Desktop Navigation with refined typography */}
-          <nav className="hidden md:flex items-center space-x-9">
+          {/* Clean Desktop Navigation with refined spacing & typography */}
+          <nav className="hidden lg:flex items-center space-x-7 xl:space-x-8">
             {eventConfig.navigation.map((item) => {
               const isGrants = item.href === '#grants';
               return isGrants ? (
@@ -77,21 +77,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
                   key={item.label}
                   type="button"
                   onClick={onOpenGrants}
-                  className={`text-xs tracking-[0.18em] uppercase font-medium transition-all py-1 flex items-center gap-1.5 px-3 py-1 rounded-full border ${
+                  className={`text-xs tracking-[0.14em] uppercase font-medium transition-all flex items-center gap-2 px-3.5 py-1.5 rounded-full border shadow-sm ${
                     isScrolled
-                      ? 'border-[#C6A96B]/40 text-[#2E381F] bg-[#C6A96B]/10 hover:bg-[#C6A96B]/20'
-                      : 'border-[#C6A96B]/50 text-[#FAF8F5] bg-white/5 hover:bg-white/10'
+                      ? 'border-[#C6A96B]/50 text-[#2E381F] bg-[#C6A96B]/15 hover:bg-[#C6A96B]/30'
+                      : 'border-[#C6A96B]/60 text-[#FAF8F5] bg-white/10 hover:bg-white/20'
                   }`}
                 >
-                  <Sparkles className="w-3 h-3 text-[#C6A96B]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#C6A96B]" />
                   <span>{item.label}</span>
-                  <span className="text-[9px] font-mono tracking-wider text-[#C6A96B] font-semibold">₦500k</span>
+                  <span className="text-[9px] font-mono tracking-wider px-1.5 py-0.5 rounded-full bg-[#C6A96B]/20 text-[#DFCA98] font-semibold">
+                    ₦500k
+                  </span>
                 </button>
               ) : (
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`text-xs tracking-[0.18em] uppercase font-medium transition-colors py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#C6A96B] hover:after:w-full after:transition-all after:duration-300 ${
+                  className={`text-xs tracking-[0.15em] uppercase font-medium transition-colors py-1 relative whitespace-nowrap after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#C6A96B] hover:after:w-full after:transition-all after:duration-300 ${
                     isScrolled
                       ? 'text-[#242820]/80 hover:text-[#2E381F]'
                       : 'text-[#FAF8F5]/85 hover:text-[#C6A96B]'
@@ -104,13 +106,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
           </nav>
 
           {/* Luxury Rounded CTA Button */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden lg:flex items-center shrink-0">
             <a
-              href="#register"
-              className={`inline-flex items-center gap-2 px-6 py-2.5 text-xs font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 shadow-sm hover:shadow-md ${
+              href="#registration-form"
+              className={`inline-flex items-center gap-2 px-6 py-2.5 text-xs font-semibold tracking-[0.16em] uppercase rounded-full transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 ${
                 isScrolled
                   ? 'bg-[#2E381F] text-[#FAF8F5] hover:bg-[#3D4A2A]'
-                  : 'bg-gradient-to-r from-[#DFCA98] via-[#C6A96B] to-[#B08D46] text-[#1B1E17] hover:from-[#FAF8F5] hover:to-[#EDE7DC] hover:text-[#2E381F]'
+                  : 'bg-gradient-to-r from-[#DFCA98] via-[#C6A96B] to-[#B08D46] text-[#1B1E17] hover:brightness-110'
               }`}
             >
               <span>REGISTER NOW</span>
@@ -119,9 +121,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
           </div>
 
           {/* Mobile Menu Trigger */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="lg:hidden flex items-center gap-3">
             <a
-              href="#register"
+              href="#registration-form"
               className={`px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.14em] uppercase rounded-full ${
                 isScrolled ? 'bg-[#2E381F] text-[#FAF8F5]' : 'bg-[#C6A96B] text-[#1B1E17]'
               }`}
@@ -143,7 +145,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenGrants }) => {
 
       {/* Mobile Drawer */}
       <div
-        className={`md:hidden transition-all duration-400 ease-in-out overflow-hidden ${
+        className={`lg:hidden transition-all duration-400 ease-in-out overflow-hidden ${
           isMobileMenuOpen ? 'max-h-[380px] border-b border-[#C6A96B]/25 bg-[#FAF8F5] text-[#242820] py-6 shadow-xl' : 'max-h-0'
         }`}
       >
