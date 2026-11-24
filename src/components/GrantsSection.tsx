@@ -113,7 +113,7 @@ export const GrantsSection: React.FC = () => {
 
     // Common reason for qualification
     if (!formData.needReason.trim() || formData.needReason.trim().length < 30) {
-      newErrors.needReason = 'Please explain why you need this grant / refuel package and what makes you qualified (minimum 30 characters)';
+      newErrors.needReason = 'Please explain why you need this grant / scholarship and what makes you qualified (minimum 30 characters)';
     }
 
     setErrors(newErrors);
@@ -296,7 +296,7 @@ export const GrantsSection: React.FC = () => {
                 Your application for the <strong>
                   {formData.grantType === 'business' && 'Business Empowerment Grant'}
                   {formData.grantType === 'ngo' && 'NGO & Community Support Fund'}
-                  {formData.grantType === 'student' && 'Student Refuel Package'}
+                  {formData.grantType === 'student' && 'Student Scholarship Support'}
                 </strong> has been officially received.
               </p>
 
@@ -545,14 +545,14 @@ export const GrantsSection: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Why do you need this grant / refuel package */}
+                  {/* Why do you need this grant / scholarship */}
                   <div>
                     <label htmlFor="needReason" className="block text-xs font-semibold tracking-wider uppercase text-[#3F4B2B] mb-2">
-                      Why do you need this grant, support, or refuel package? <span className="text-amber-800">*</span>
+                      Why do you need this grant, support, or scholarship? <span className="text-amber-800">*</span>
                     </label>
                     <p className="text-xs text-[#2A2E24]/70 mb-2 font-light">
                       {formData.grantType === 'student'
-                        ? 'Detail your current academic standing, courses, and how this refuel kit will lift a burden off your studies.'
+                        ? 'Detail your current academic standing, courses, and how this scholarship will lift a burden off your studies.'
                         : 'Explain the critical financial gap this grant will bridge, and what makes your venture or mission deserving of selection.'}
                     </p>
                     <textarea

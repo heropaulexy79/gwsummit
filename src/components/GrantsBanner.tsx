@@ -29,7 +29,7 @@ export const GrantsBanner: React.FC<GrantsBannerProps> = ({ onOpenGrants }) => {
             </h2>
 
             <p className="text-sm sm:text-base text-[#FAF8F5]/85 font-light leading-relaxed">
-              We believe in the power of women who build, heal, and lead. Through our benevolence fund, we are investing seed grants into female entrepreneurs, non-profits, and educational refuel packages in Lagos.
+              We believe in the power of women who build, heal, and lead. Through our benevolence fund, we are investing seed grants into female entrepreneurs, non-profits, and educational scholarships in Lagos.
             </p>
 
             {/* Clean Category Badges */}
@@ -41,7 +41,7 @@ export const GrantsBanner: React.FC<GrantsBannerProps> = ({ onOpenGrants }) => {
                 <HeartHandshake className="w-3.5 h-3.5 text-[#C6A96B]" /> NGO Interventions
               </span>
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FAF8F5]/10">
-                <GraduationCap className="w-3.5 h-3.5 text-[#C6A96B]" /> Student Refuel Kits
+                <GraduationCap className="w-3.5 h-3.5 text-[#C6A96B]" /> Student Scholarships
               </span>
             </div>
           </div>

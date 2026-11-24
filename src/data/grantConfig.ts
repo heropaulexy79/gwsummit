@@ -37,15 +37,15 @@ export const grantTiers: GrantTier[] = [
   },
   {
     id: 'student',
-    title: 'Student Refuel Package',
+    title: 'Student Scholarship Support',
     badge: 'ACADEMIC EXCELLENCE',
-    amount: 'Back-to-School Kits + Stipend',
+    amount: 'Scholarships + Learning Stipend',
     tagline: 'Equipping female students with essentials for the upcoming academic season',
-    description: 'A complete academic kit with premium learning supplies, essential study tools, and tuition support stipends to relieve families and empower young women in secondary and tertiary institutions.',
+    description: 'A complete academic scholarship with premium learning supplies, essential study tools, and tuition support stipends to relieve families and empower young women in secondary and tertiary institutions.',
     qualifications: [
       'Currently enrolled in a recognized secondary, polytechnic, or university program',
       'Passion for academic diligence, personal development, and godly leadership',
-      'Brief statement on how this refuel package will ease your educational journey'
+      'Brief statement on how this scholarship will ease your educational journey'
     ]
   }
 ];

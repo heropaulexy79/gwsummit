@@ -117,7 +117,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
     }
 
     if (!formData.needReason.trim() || formData.needReason.trim().length < 30) {
-      newErrors.needReason = 'Please explain why you need this grant / refuel package and what makes you qualified (minimum 30 characters)';
+      newErrors.needReason = 'Please explain why you need this grant and what makes you qualified (minimum 30 characters)';
     }
 
     setErrors(newErrors);
@@ -198,7 +198,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
               GWS 2027 Grants Portal
             </span>
             <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#C6A96B]">
-              Lagos, Nigeria • Seed Funds & Refuel Kits
+              Lagos, Nigeria • Seed Funds & Scholarship
             </span>
           </div>
 
@@ -228,7 +228,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#FAF8F5]/85 max-w-2xl mx-auto font-light leading-relaxed">
-            Investing directly into female-led enterprises, community change-makers, and academic refuel packages across Lagos and beyond.
+            Investing directly into female-led enterprises, community change-makers, and academic scholarships across Lagos and beyond.
           </p>
         </div>
       </section>
@@ -340,7 +340,7 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
                   Your application for the <strong>
                     {formData.grantType === 'business' && 'Business Empowerment Grant'}
                     {formData.grantType === 'ngo' && 'NGO & Community Support Fund'}
-                    {formData.grantType === 'student' && 'Student Refuel Package'}
+                    {formData.grantType === 'student' && 'Student Scholarship Support'}
                   </strong> has been saved to the grants registry. A confirmation email has been dispatched to:
                 </p>
 
@@ -589,11 +589,11 @@ export const GrantsPage: React.FC<GrantsPageProps> = ({ onBackToHome }) => {
 
                     <div>
                       <label htmlFor="needReason" className="block text-xs font-semibold tracking-wider uppercase text-[#3F4B2B] mb-2">
-                        Why do you need this grant, support, or refuel package? <span className="text-amber-800">*</span>
+                        Why do you need this grant, support, or scholarship? <span className="text-amber-800">*</span>
                       </label>
                       <p className="text-xs text-[#2A2E24]/70 mb-2 font-light">
                         {formData.grantType === 'student'
-                          ? 'Detail your current academic standing, courses, and how this refuel kit will lift a burden off your studies.'
+                          ? 'Detail your current academic standing, courses, and how this scholarship will lift a burden off your studies.'
                           : 'Explain the critical financial gap this grant will bridge, and what makes your venture or mission deserving of selection.'}
                       </p>
                       <textarea
