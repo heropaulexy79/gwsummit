@@ -3,7 +3,7 @@
 
 export const WEBHOOK_URL: string =
   (import.meta as any).env?.VITE_SHEETS_WEBHOOK_URL ||
-  'https://script.google.com/macros/s/AKfycbxAHReE5LNxNBQ5CXzGU0yaLScR6IpRVyIIcLcLxzRpTHB9fxue7mxB8eD7kWmUqHqt/exec'; // Paste your Google Apps Script Web App URL here
+  'https://script.google.com/macros/s/AKfycbwgC0EL1dRLnjuB9AXVw3mKRQsFcJf2bnNrpDxghjsb5ULs0OTvwHGUIsxM7YVOsFdJ/exec'; // Paste your Google Apps Script Web App URL here
 
 export async function submitToSheets(
   payload: Record<string, any>

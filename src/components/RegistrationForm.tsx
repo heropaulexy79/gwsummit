@@ -44,6 +44,7 @@ interface FormErrors {
   state?: string;
   city?: string;
   nearestBusStop?: string;
+  referralSource?: string;
   relationshipStatus?: string;
 }
 
@@ -78,7 +79,7 @@ export const RegistrationForm: React.FC = () => {
     city: '',
     attendanceOption: 'Physical',
     nearestBusStop: '',
-    referralSource: 'Instagram',
+    referralSource: '',
     relationshipStatus: 'Married',
     volunteer: 'No',
     expectations: '',
@@ -125,6 +126,10 @@ export const RegistrationForm: React.FC = () => {
     // Nearest Bus Stop is compulsory only for Physical attendees
     if (formData.attendanceOption === 'Physical' && !formData.nearestBusStop.trim()) {
       newErrors.nearestBusStop = 'Nearest bus stop is required for physical delegates (for transportation & logistics)';
+    }
+
+    if (!formData.referralSource) {
+      newErrors.referralSource = 'Please select how you heard about the summit';
     }
 
     if (!formData.relationshipStatus) {
@@ -202,7 +207,7 @@ export const RegistrationForm: React.FC = () => {
       city: '',
       attendanceOption: 'Physical',
       nearestBusStop: '',
-      referralSource: 'Instagram',
+      referralSource: '',
       relationshipStatus: 'Married',
       volunteer: 'No',
       expectations: '',
@@ -677,21 +682,30 @@ export const RegistrationForm: React.FC = () => {
                   {/* 10. How did you hear about the summit? */}
                   <div>
                     <label htmlFor="referralSource" className="block text-xs font-semibold tracking-wider uppercase text-[#3F4B2B] mb-2">
-                      10. How did you hear about the summit?
+                      10. How did you hear about the summit? <span className="text-amber-800">*</span>
                     </label>
                     <select
                       id="referralSource"
                       name="referralSource"
+                      required
                       value={formData.referralSource}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
+                      className={`w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border text-[#252820] text-sm focus:outline-none transition-colors ${
+                        errors.referralSource ? 'border-red-500 form-error-marker' : 'border-[#69764A]/30 focus:border-[#3F4B2B]'
+                      }`}
                     >
+                      <option value="">Select an option...</option>
                       {REFERRAL_SOURCES.map((source) => (
                         <option key={source} value={source}>
                           {source}
                         </option>
                       ))}
                     </select>
+                    {errors.referralSource && (
+                      <p className="mt-1 text-xs text-red-600 flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" /> {errors.referralSource}
+                      </p>
+                    )}
                   </div>
 
                   {/* 11. Relationship Status */}

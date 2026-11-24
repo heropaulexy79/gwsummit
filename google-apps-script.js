@@ -361,7 +361,7 @@ function sendRegistrationConfirmationEmail(data, entryCode) {
 
           <p style="font-size: 14px; color: #6B7258; margin: 24px 0 0 0; font-style: italic;">
             Warm regards,<br />
-            <strong>The Global Women Summit Team</strong><br />
+            <strong>The Global Wives Summit Team</strong><br />
             Convening in Lagos, Nigeria
           </p>
         </div>
@@ -378,7 +378,7 @@ function sendRegistrationConfirmationEmail(data, entryCode) {
   MailApp.sendEmail({
     to: data.email,
     subject: subject,
-    name: "Global Women Summit",
+    name: "Global Wives Summit",
     replyTo: "globalwivessummit@gmail.com",
     htmlBody: htmlBody
   });
@@ -480,7 +480,7 @@ function sendGrantConfirmationEmail(data) {
 
           <p style="font-size: 14px; color: #6B7258; margin: 24px 0 0 0; font-style: italic;">
             Warm regards,<br />
-            <strong>The Global Women Summit Team</strong><br />
+            <strong>The Global Wives Summit Team</strong><br />
             Benevolence & Empowerment Committee
           </p>
         </div>
@@ -497,7 +497,7 @@ function sendGrantConfirmationEmail(data) {
   MailApp.sendEmail({
     to: data.email,
     subject: subject,
-    name: "Global Women Summit",
+    name: "Global Wives Summit",
     replyTo: "globalwivessummit@gmail.com",
     htmlBody: htmlBody
   });
