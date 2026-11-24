@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, Calendar, Tag, MapPin, Quote } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { GalleryImage } from '../data/galleryData';
 
 interface GalleryLightboxProps {
@@ -100,62 +100,12 @@ export const GalleryLightbox: React.FC<GalleryLightboxProps> = ({
         className="max-w-5xl w-full max-h-[88vh] flex flex-col items-center justify-center relative z-10"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative w-full max-h-[60vh] sm:max-h-[64vh] flex items-center justify-center overflow-hidden border border-[#C6A96B]/40 shadow-2xl bg-[#1E2514]">
+        <div className="relative w-full max-h-[82vh] flex items-center justify-center overflow-hidden rounded-2xl border border-[#C6A96B]/30 shadow-2xl bg-[#1E2514]">
           <img
             src={image.src}
             alt={image.alt}
-            className="w-full h-auto max-h-[60vh] sm:max-h-[64vh] object-contain filter contrast-105"
+            className="w-full h-auto max-h-[82vh] object-contain"
           />
-        </div>
-
-        {/* Exhibition Catalog Caption Card */}
-        <div className="w-full mt-4 p-5 sm:p-7 bg-[#1E2514]/95 border border-[#C6A96B]/35 text-[#F6F3EB] flex flex-col sm:flex-row sm:items-start justify-between gap-6 shadow-2xl">
-          <div className="space-y-2 max-w-2xl">
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-widest text-[#DFCA98]">
-                <Tag className="w-3 h-3" />
-                {image.category}
-              </span>
-              <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#A5AE8B]">
-                <Calendar className="w-3 h-3" />
-                Summit {image.year}
-              </span>
-              {image.location && (
-                <span className="flex items-center gap-1.5 text-[11px] font-mono text-[#EAE5D8]/70">
-                  <MapPin className="w-3 h-3 text-[#C6A96B]" />
-                  {image.location}
-                </span>
-              )}
-            </div>
-
-            <h4 className="font-serif text-2xl sm:text-3xl text-[#F6F3EB] font-medium">
-              {image.title}
-            </h4>
-
-            <p className="font-sans text-xs sm:text-sm text-[#EAE5D8]/85 font-light leading-relaxed">
-              {image.description}
-            </p>
-
-            {image.quote && (
-              <div className="pt-2 flex items-start gap-2 text-xs italic font-serif text-[#DFCA98]">
-                <Quote className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#C6A96B]" />
-                <span>{image.quote}</span>
-              </div>
-            )}
-          </div>
-
-          <div className="shrink-0 flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-3">
-            <span className="text-[10px] font-mono text-[#A5AE8B] uppercase tracking-widest border border-white/10 px-3 py-1 bg-black/40">
-              OFFICIAL 2026 ARCHIVE
-            </span>
-            <a
-              href="#register"
-              onClick={onClose}
-              className="text-xs font-semibold tracking-wider uppercase text-[#DFCA98] hover:underline"
-            >
-              JOIN 2027 COHORT &rarr;
-            </a>
-          </div>
         </div>
       </div>
     </div>

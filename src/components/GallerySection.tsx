@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Heart } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { galleryImages } from '../data/galleryData';
 import type { GalleryImage } from '../data/galleryData';
 import { GalleryLightbox } from './GalleryLightbox';
@@ -72,33 +72,12 @@ export const GallerySection: React.FC = () => {
                   loading="lazy"
                 />
 
-                {/* Gentle Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#242A1D]/85 via-[#242A1D]/20 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
-
-                {/* Top Soft Pill */}
-                <div className="absolute top-5 left-5 z-10">
-                  <span className="px-3.5 py-1 text-[10px] tracking-wider uppercase bg-[#FAF8F5]/90 backdrop-blur-sm text-[#3F4B2B] rounded-full font-medium shadow-sm">
-                    {img.category}
-                  </span>
-                </div>
+                {/* Subtle Hover Gradient */}
+                <div className="absolute inset-0 bg-[#242A1D]/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Magnifier Icon */}
-                <div className="absolute top-5 right-5 w-9 h-9 rounded-full bg-[#FAF8F5]/80 text-[#3F4B2B] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0">
+                <div className="absolute top-5 right-5 w-9 h-9 rounded-full bg-[#FAF8F5]/90 text-[#3F4B2B] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-1 group-hover:translate-y-0 shadow-md">
                   <Eye className="w-4 h-4" />
-                </div>
-
-                {/* Caption Information */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 text-[#FAF8F5] transform transition-transform duration-300">
-                  <div className="flex items-center gap-1.5 text-xs text-[#EAE1D7] mb-1 font-light">
-                    <Heart className="w-3 h-3 fill-[#C6A96B] text-[#C6A96B]" />
-                    <span>2026 Summit Memory</span>
-                  </div>
-                  <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#FAF8F5] leading-tight">
-                    {img.title}
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm text-[#FAF8F5]/80 line-clamp-2 font-light">
-                    {img.description}
-                  </p>
                 </div>
               </div>
             );
@@ -107,7 +86,7 @@ export const GallerySection: React.FC = () => {
 
         {/* Footnote */}
         <div className="mt-12 text-center text-xs text-[#5C6B42] font-light tracking-wider">
-          Click any photograph to view full caption and memories • Curated summit archive
+          Click any photograph to view in full resolution • Official 2026 Summit Archive
         </div>
 
       </div>

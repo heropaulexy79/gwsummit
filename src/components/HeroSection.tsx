@@ -90,8 +90,8 @@ export const HeroSection: React.FC = () => {
               {/* Classical Arch Frame with High-Fashion Portrait */}
               <div className="relative rounded-t-[140px] rounded-b-3xl overflow-hidden shadow-2xl border border-white/20 aspect-3/4 bg-[#2E381F]">
                 <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85"
-                  alt="A woman radiating quiet strength, poise, and grace"
+                  src="/images/gws-2026/convener.jpeg"
+                  alt="Convener, Global Wives Summit"
                   className="w-full h-full object-cover filter contrast-[1.04]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1B1E17]/90 via-transparent to-transparent" />
