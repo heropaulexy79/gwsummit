@@ -11,6 +11,7 @@ export interface EventConfig {
   isThemeConfirmed: boolean;
   contactEmail: string;
   whatsappGroupLink?: string;
+  volunteerWhatsAppLink?: string;
   contacts?: {
     name: string;
     phone: string;
@@ -42,6 +43,7 @@ export const eventConfig: EventConfig = {
   isThemeConfirmed: true,
   contactEmail: "globalwivessummit@gmail.com",
   whatsappGroupLink: "https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t",
+  volunteerWhatsAppLink: "https://chat.whatsapp.com/LIUAnLOdf0MDQj3C9KcZa6?s=cl&p=i&iam=2",
   contacts: [
     { name: "Aderonke", phone: "+234 916 584 0610", type: "call" },
     { name: "Precious", phone: "08072484722", type: "whatsapp", link: "https://wa.me/2348072484722" },

@@ -3,9 +3,11 @@
 
 export const WEBHOOK_URL: string =
   (import.meta as any).env?.VITE_SHEETS_WEBHOOK_URL ||
-  'https://script.google.com/macros/s/AKfycbyMZuukaYC3euZJsSwGkPM04uS3GNdWBVW39b_I0qSiBczfkFkfbDBHJ_f_uOwBtWYZ/exec'; // Paste your Google Apps Script Web App URL here
+  'https://script.google.com/macros/s/AKfycbz9j09kKGbXcVlUKv_HUU7SZTg4hJ_KguyDcxurzyg9LCi3GIJuwNstfkavQvaw_cBW/exec'; // Paste your Google Apps Script Web App URL here
 
-export async function submitToSheets(payload: Record<string, any>): Promise<{ success: boolean; message?: string }> {
+export async function submitToSheets(
+  payload: Record<string, any>
+): Promise<{ success: boolean; message?: string; entryCode?: string }> {
   if (!WEBHOOK_URL) {
     // Fallback prototype mode when no URL is provided yet:
     console.log('[Prototype Mode] Submitting payload locally:', payload);
@@ -13,7 +15,34 @@ export async function submitToSheets(payload: Record<string, any>): Promise<{ su
   }
 
   try {
-    // Mode 'no-cors' allows sending cross-origin POST requests to Google Apps Script without CORS blockage
+    // Try standard CORS-readable POST first so we can read the generated entryCode
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(payload),
+      redirect: 'follow',
+    });
+
+    if (response.ok) {
+      try {
+        const result = await response.json();
+        return {
+          success: result.result !== 'error',
+          entryCode: result.entryCode,
+          message: result.error,
+        };
+      } catch {
+        return { success: true };
+      }
+    }
+  } catch (err) {
+    // Fall back to 'no-cors' if the browser/Apps Script redirect blocks reading the response
+    console.warn('Standard POST blocked by CORS, falling back to no-cors:', err);
+  }
+
+  try {
     await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {

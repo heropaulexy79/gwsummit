@@ -31,6 +31,7 @@ interface FormData {
   nearestBusStop: string;
   referralSource: string;
   relationshipStatus: string;
+  volunteer: 'Yes' | 'No';
   expectations: string;
 }
 
@@ -79,6 +80,7 @@ export const RegistrationForm: React.FC = () => {
     nearestBusStop: '',
     referralSource: 'Instagram',
     relationshipStatus: 'Married',
+    volunteer: 'No',
     expectations: '',
   });
 
@@ -86,6 +88,7 @@ export const RegistrationForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+  const [entryCode, setEntryCode] = useState<string | null>(null);
   const [showWhatsAppModal, setShowWhatsAppModal] = useState<boolean>(false);
 
   const validate = (): boolean => {
@@ -166,11 +169,14 @@ export const RegistrationForm: React.FC = () => {
       timestamp: new Date().toISOString()
     };
 
-    await submitToSheets(payload);
+    const res = await submitToSheets(payload);
+    if (res.entryCode) {
+      setEntryCode(res.entryCode);
+    }
 
     try {
       const existing = JSON.parse(localStorage.getItem('gws_registrations') || '[]');
-      existing.push(payload);
+      existing.push({ ...payload, ...(res.entryCode ? { entryCode: res.entryCode } : {}) });
       localStorage.setItem('gws_registrations', JSON.stringify(existing));
     } catch (err) {
       console.warn('LocalStorage error:', err);
@@ -185,6 +191,7 @@ export const RegistrationForm: React.FC = () => {
   const handleReset = () => {
     setIsSuccess(false);
     setShowWhatsAppModal(false);
+    setEntryCode(null);
     setFormData({
       fullName: '',
       email: '',
@@ -197,6 +204,7 @@ export const RegistrationForm: React.FC = () => {
       nearestBusStop: '',
       referralSource: 'Instagram',
       relationshipStatus: 'Married',
+      volunteer: 'No',
       expectations: '',
     });
     setErrors({});
@@ -255,6 +263,24 @@ export const RegistrationForm: React.FC = () => {
               {submittedData.email}
             </div>
 
+            {entryCode ? (
+              <div className="max-w-md mx-auto mb-6 p-5 rounded-2xl bg-[#2E381F] border-2 border-[#C6A96B] text-[#FAF8F5] shadow-md">
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#DFCA98] block mb-1">
+                  OFFICIAL ENTRY CODE • ACCREDITATION PASS
+                </span>
+                <div className="font-mono text-2xl sm:text-3xl font-bold tracking-[0.14em] text-white">
+                  {entryCode}
+                </div>
+                <p className="text-[11px] text-[#EAE1D7]/80 mt-1.5 font-light">
+                  Please save this code and present it at the check-in desk upon arrival.
+                </p>
+              </div>
+            ) : (
+              <p className="max-w-md mx-auto mb-6 text-xs text-[#5C6B42] font-light italic">
+                Your unique entry code has been sent directly to your confirmation email.
+              </p>
+            )}
+
             <div className="max-w-md mx-auto p-5 bg-[#EAE5D8]/50 rounded-2xl border border-[#69764A]/20 text-left text-xs space-y-2.5 mb-8">
               <div className="flex justify-between">
                 <span className="text-[#69764A] uppercase font-mono">Attendance Mode</span>
@@ -274,35 +300,73 @@ export const RegistrationForm: React.FC = () => {
                 <span className="text-[#69764A] uppercase font-mono">Relationship Status</span>
                 <span className="font-medium text-[#252820]">{submittedData.relationshipStatus}</span>
               </div>
+              <div className="flex justify-between">
+                <span className="text-[#69764A] uppercase font-mono">Volunteer</span>
+                <span className={`font-semibold ${submittedData.volunteer === 'Yes' ? 'text-emerald-700' : 'text-[#252820]'}`}>
+                  {submittedData.volunteer === 'Yes' ? 'Yes (Volunteer)' : 'No'}
+                </span>
+              </div>
             </div>
 
-            {/* Prominent WhatsApp Community Banner on Confirmation */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#E8F5E9] border-2 border-[#25D366] text-left mb-6 shadow-md">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <div className="flex-grow">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#1E7E34] font-bold block mb-1">
-                    OFFICIAL ATTENDEES COMMUNITY
-                  </span>
-                  <h4 className="font-serif text-lg sm:text-xl text-[#1B4323] font-semibold mb-1">
-                    Join the Global Wives WhatsApp Group
-                  </h4>
-                  <p className="text-xs sm:text-sm text-[#2D5A35] font-light leading-relaxed mb-4">
-                    Connect directly with fellow registered wives, receive prompt summit logistics, venue updates, and daily prayer inspiration.
-                  </p>
-                  <a
-                    href="https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold tracking-wider uppercase rounded-full shadow-lg transition-transform hover:scale-105"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Join WhatsApp Group Now</span>
-                  </a>
+            {/* Prominent WhatsApp Community & Volunteer Links on Confirmation */}
+            <div className="space-y-4 mb-6">
+              <div className="p-5 sm:p-6 rounded-2xl bg-[#E8F5E9] border-2 border-[#25D366] text-left shadow-md">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  <div className="flex-grow">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#1E7E34] font-bold block mb-1">
+                      OFFICIAL ATTENDEES COMMUNITY
+                    </span>
+                    <h4 className="font-serif text-lg sm:text-xl text-[#1B4323] font-semibold mb-1">
+                      Join the Global Wives WhatsApp Group
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#2D5A35] font-light leading-relaxed mb-4">
+                      Connect directly with fellow registered wives, receive prompt summit logistics, venue updates, and daily prayer inspiration.
+                    </p>
+                    <a
+                      href="https://chat.whatsapp.com/Gxl9V3GkCfxLsLaMNaFUjP?mode=gi_t"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-semibold tracking-wider uppercase rounded-full shadow-lg transition-transform hover:scale-105"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Join Community Group</span>
+                    </a>
+                  </div>
                 </div>
               </div>
+
+              {submittedData.volunteer === 'Yes' && (
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#F0F7FF] border-2 border-[#1E88E5] text-left shadow-md animate-fade-in">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#1E88E5] text-white flex items-center justify-center shrink-0 shadow-md">
+                      <HeartHandshake className="w-6 h-6" />
+                    </div>
+                    <div className="flex-grow">
+                      <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#0D47A1] font-bold block mb-1">
+                        VOLUNTEER CORPS
+                      </span>
+                      <h4 className="font-serif text-lg sm:text-xl text-[#0D47A1] font-semibold mb-1">
+                        Join the GWS 2.0 Volunteer Team
+                      </h4>
+                      <p className="text-xs sm:text-sm text-[#1565C0] font-light leading-relaxed mb-4">
+                        Thank you for your heart to serve! Join the volunteer coordination group for committee briefings, roles, and planning meetings.
+                      </p>
+                      <a
+                        href="https://chat.whatsapp.com/LIUAnLOdf0MDQj3C9KcZa6?s=cl&p=i&iam=2"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#1E88E5] hover:bg-[#1565C0] text-white text-xs font-semibold tracking-wider uppercase rounded-full shadow-lg transition-transform hover:scale-105"
+                      >
+                        <HeartHandshake className="w-4 h-4" />
+                        <span>Join Volunteer WhatsApp Group</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <button
@@ -669,6 +733,32 @@ export const RegistrationForm: React.FC = () => {
                     className="w-full px-4 py-3 rounded-xl bg-[#F6F3EB]/60 border border-[#69764A]/30 text-[#252820] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
                   />
                 </div>
+
+                {/* 13. Volunteer Question */}
+                <div className="pt-2">
+                  <label className="block text-xs font-semibold tracking-wider uppercase text-[#3F4B2B] mb-2">
+                    13. Do you want to volunteer? <span className="text-amber-800">*</span>
+                  </label>
+                  <p className="text-xs text-[#252820]/70 mb-3 font-light">
+                    Join our dedicated team of servant-hearted women making GWS 2.0 an unforgettable experience.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 max-w-sm">
+                    {(['Yes', 'No'] as const).map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => setFormData(prev => ({ ...prev, volunteer: opt }))}
+                        className={`py-3 px-4 rounded-xl border text-xs uppercase tracking-wider font-semibold transition-all ${
+                          formData.volunteer === opt
+                            ? 'bg-[#3F4B2B] text-[#FAF8F5] border-[#3F4B2B] shadow-md'
+                            : 'bg-[#F6F3EB]/60 border-[#69764A]/30 text-[#252820] hover:bg-white'
+                        }`}
+                      >
+                        {opt === 'Yes' ? '🤝 Yes, I want to volunteer' : 'No, just attending'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Privacy Notice */}
@@ -728,12 +818,23 @@ export const RegistrationForm: React.FC = () => {
               REGISTRATION SUCCESSFUL! 🎉
             </span>
 
+            {entryCode && (
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 my-2 rounded-full bg-[#2E381F] border border-[#C6A96B] text-[#FAF8F5] font-mono text-xs tracking-wider">
+                <span className="text-[#DFCA98] uppercase">Entry Code:</span>
+                <span className="font-bold">{entryCode}</span>
+              </div>
+            )}
+
             <h3 className="font-serif text-2xl sm:text-3xl text-[#1B4323] font-normal leading-tight mb-2">
-              Join the Official Global Wives WhatsApp Group
+              {submittedData?.volunteer === 'Yes'
+                ? 'Connect with Our Community & Volunteer Corps'
+                : 'Join the Official Global Wives WhatsApp Group'}
             </h3>
 
             <p className="text-sm text-[#2A2E24]/80 font-light leading-relaxed mb-6">
-              You are officially registered! To ensure you do not miss any summit updates, prayer anchors, schedule announcements, and delegate instructions, please connect with the official attendee group on WhatsApp.
+              {submittedData?.volunteer === 'Yes'
+                ? 'You are officially registered as a delegate and volunteer! Please join both the main attendee group for summit updates and the volunteer group for committee assignments.'
+                : 'You are officially registered! To ensure you do not miss any summit updates, prayer anchors, schedule announcements, and delegate instructions, please connect with the official attendee group on WhatsApp.'}
             </p>
 
             {/* CTAs */}
@@ -746,8 +847,21 @@ export const RegistrationForm: React.FC = () => {
                 className="w-full inline-flex items-center justify-center gap-3 py-3.5 px-6 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white font-semibold text-sm tracking-wider uppercase shadow-xl transition-all hover:scale-105"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>Join WhatsApp Group Now</span>
+                <span>Join Community WhatsApp Group</span>
               </a>
+
+              {submittedData?.volunteer === 'Yes' && (
+                <a
+                  href="https://chat.whatsapp.com/LIUAnLOdf0MDQj3C9KcZa6?s=cl&p=i&iam=2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setShowWhatsAppModal(false)}
+                  className="w-full inline-flex items-center justify-center gap-3 py-3.5 px-6 rounded-full bg-[#1E88E5] hover:bg-[#1565C0] text-white font-semibold text-sm tracking-wider uppercase shadow-xl transition-all hover:scale-105"
+                >
+                  <HeartHandshake className="w-5 h-5" />
+                  <span>Join Volunteer WhatsApp Group</span>
+                </a>
+              )}
 
               <button
                 type="button"
