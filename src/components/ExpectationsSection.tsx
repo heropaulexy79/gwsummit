@@ -113,9 +113,9 @@ export const ExpectationsSection: React.FC = () => {
               {/* Arched Photo */}
               <div className="rounded-t-[140px] rounded-b-3xl overflow-hidden shadow-2xl border-4 border-white aspect-4/5 relative">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85"
-                  alt="An engaged, uplifted attendee smiling during summit sessions"
-                  className="w-full h-full object-cover"
+                  src="/images/gws-2026/convener2.jpeg"
+                  alt="Convener, Global Wives Summit 2.0"
+                  className="w-full h-full object-cover object-top"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#2E381F]/80 via-transparent to-transparent" />
