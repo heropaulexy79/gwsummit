@@ -101,7 +101,7 @@ export const HeroSection: React.FC = () => {
                   <div className="flex items-center justify-center gap-1.5 text-[#3D4A2A]">
                     <Sparkles className="w-3.5 h-3.5 text-[#C6A96B]" />
                     <span className="font-serif italic text-base sm:text-lg text-[#2E381F]">
-                      "Renewed in Love & Faith"
+                      "{eventConfig.theme}"
                     </span>
                   </div>
                   <div className="flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest text-[#56653D] font-medium pt-1 border-t border-[#3D4A2A]/10">
