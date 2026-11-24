@@ -6,16 +6,16 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative min-h-[96vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#1B1E17] text-[#FAF8F5] pt-32 sm:pt-36 pb-20">
       
-      {/* High-Resolution Golden-Hour Photography */}
+      {/* High-Resolution Atmosphere Photography */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=2200&q=88"
-          alt="Radiant women embracing in joy, faith, and purposeful sisterhood"
-          className="w-full h-full object-cover object-[center_32%] filter brightness-[0.48] contrast-[1.08] scale-105"
+          src="/images/gws-2026/4.jpeg"
+          alt="Global Wives Summit atmosphere"
+          className="w-full h-full object-cover object-center filter brightness-[0.42] contrast-[1.08] scale-105"
           loading="eager"
         />
         {/* Multilayered warm olive duotone & golden spotlight radiance */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1E17]/95 via-[#2E381F]/80 to-[#1B1E17]/70 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1E17]/95 via-[#2E381F]/75 to-[#1B1E17]/70 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#1B1E17] via-transparent to-[#1B1E17]/50" />
         <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-[#C6A96B]/15 rounded-full blur-[140px] pointer-events-none" />
       </div>
