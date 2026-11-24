@@ -34,11 +34,13 @@ export const HeroSection: React.FC = () => {
           <div className="lg:col-span-8 space-y-7 sm:space-y-8">
             
             {/* Elegant Pill Eyebrow */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel-dark text-xs tracking-[0.22em] text-[#E8DDD2] uppercase">
+            <div className="inline-flex flex-wrap items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel-dark text-xs tracking-[0.22em] text-[#E8DDD2] uppercase">
               <Heart className="w-3.5 h-3.5 text-[#C6A96B] fill-[#C6A96B]" />
               <span className="font-light">GLOBAL WIVES SUMMIT 2.0</span>
               <span className="text-[#C6A96B]">•</span>
               <span className="text-[#C6A96B] font-medium">{eventConfig.location.toUpperCase()}</span>
+              <span className="hidden sm:inline text-[#C6A96B]">•</span>
+              <span className="hidden sm:inline font-script text-base text-[#DFCA98] lowercase tracking-normal">theme: "{eventConfig.theme}"</span>
             </div>
 
             {/* Display Headline with Cursive / Script Flourish */}

@@ -222,6 +222,11 @@ export const RegistrationForm: React.FC = () => {
             Register for {eventConfig.name} {eventConfig.year}
           </h2>
 
+          <div className="mt-2 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#FAF8F5] border border-[#C6A96B]/40 text-xs font-mono text-[#5C6B42]">
+            <span className="uppercase tracking-wider">THEME:</span>
+            <span className="font-serif italic text-sm text-[#3F4B2B]">"{eventConfig.theme}"</span>
+          </div>
+
           <p className="mt-3 text-sm sm:text-base text-[#252820]/75 font-light">
             Convening in Lagos, Nigeria & streaming globally. An official confirmation email and attendance accreditation pass will be sent directly to your inbox.
           </p>

@@ -577,21 +577,21 @@ export const GrantsSection: React.FC = () => {
                     )}
                   </div>
 
-                  {/* Optional Proposal Details / Summary */}
+                  {/* Short Business Proposal */}
                   <div>
                     <label htmlFor="proposalDetails" className="block text-xs font-semibold tracking-wider uppercase text-[#3F4B2B] mb-1">
-                      Business Proposal / Budget Breakdown Summary <span className="text-[#5C6B42] text-[10px] font-normal lowercase">(recommended)</span>
+                      Short Business Proposal <span className="text-[#5C6B42] text-[10px] font-normal lowercase">(recommended)</span>
                     </label>
                     <p className="text-xs text-[#2A2E24]/70 mb-2 font-light">
-                      Provide a brief line-item breakdown of how the ₦500,000 or student support will be expended.
+                      Provide a concise summary of your business proposal or how the grant/scholarship funds will be deployed.
                     </p>
                     <textarea
                       id="proposalDetails"
                       name="proposalDetails"
-                      rows={2}
+                      rows={3}
                       value={formData.proposalDetails}
                       onChange={handleChange}
-                      placeholder="e.g. 1. Equipment purchase: ₦300,000 | 2. Inventory raw materials: ₦150,000 | 3. Logistics & packaging: ₦50,000"
+                      placeholder="Briefly describe your business model, target market, and how this funding will be utilized to achieve sustainable growth..."
                       className="w-full px-4 py-3 rounded-xl bg-[#F3EFE8]/70 border border-[#EAE1D7] text-[#2A2E24] text-sm focus:outline-none focus:border-[#3F4B2B] transition-colors"
                     />
                   </div>

@@ -150,7 +150,7 @@ function sendRegistrationConfirmationEmail(data) {
             Global Wives Summit 2.0
           </h1>
           <p style="margin: 8px 0 0 0; font-style: italic; color: #EAE1D7; font-size: 15px;">
-            "Renewed in Love, Faith & Divine Purpose"
+            "Stewarding Your Influence as a Woman"
           </p>
         </div>
 
