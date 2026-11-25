@@ -61,9 +61,9 @@ export const StorySection: React.FC = () => {
               {/* Image 1: High Classical Arch */}
               <div className="rounded-t-[120px] rounded-b-2xl overflow-hidden shadow-xl aspect-3/5 border-2 border-white">
                 <img
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=85"
+                  src="/images/gws-2026/about1.jpeg"
                   alt="Women laughing together in joyful sisterhood"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                   loading="lazy"
                 />
               </div>
@@ -72,7 +72,7 @@ export const StorySection: React.FC = () => {
               <div className="space-y-4">
                 <div className="rounded-2xl overflow-hidden shadow-xl aspect-4/5 border-2 border-white">
                   <img
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=85"
+                    src="/images/gws-2026/about2.jpeg"
                     alt="Women in prayer and spiritual connection"
                     className="w-full h-full object-cover"
                     loading="lazy"
